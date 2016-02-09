@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app = "app">
+<head>
+    <title></title>
+     <script src='../../bower_components/angular/angular.js'></script>
+     <script type="text/javascript">
+      console.log("hello");
+      var app = angular.module('app', []);
+
+      app.controller("AwesomeController", ['$scope', '$http', function($scope, $http) {
+        $scope.greeting = 'Hola!';
+        $scope.food = [];
+
+        $scope.add_grub = function() {
+          if($scope.food_item.length > 2) {
+            $scope.food.push($scope.food_item);
+          }
+          console.log($scope.food_item);
+          $scope.greeting = "grub added";
+          $scope.food_item = "";
+        }
+
+
+      }]);
+
+     </script>
+</head>
+<body ng-controller = 'AwesomeController' >
+  {{greeting}}
+    <div id='main_wrapper'>
+      <form action='/add' method='post'>
+        Favorite Food: <input type='text' ng-model='food_item'>
+        <input type='button' ng-click = 'add_grub();' value='add food'>
+
+      </form>
+      <input type='text' ng-model='myFilterModel'>
+
+        <p>{{food_item}}</p>
+        <p ng-repeat = "i in food | filter:myFilterModel">
+          {{i}}
+        </p>
+    </div>
+</body>
+
+
+</html>
